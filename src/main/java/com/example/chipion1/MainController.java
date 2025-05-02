@@ -1,5 +1,8 @@
 package com.example.chipion1;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +11,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.animation.FadeTransition;
+import javafx.util.Duration;
+
 
 import java.io.IOException;
 
@@ -17,15 +23,27 @@ public class MainController {
     @FXML private Label scoreLabel;
     @FXML private MenuBar menuBar;
 
+    @FXML private TableView<PlayerScore> leaderboardTable;
+    @FXML private TableColumn<PlayerScore, String> nameColumn;
+    @FXML private TableColumn<PlayerScore, String> symbolColumn;
+    @FXML private TableColumn<PlayerScore, String> scoreColumn;
+
     private GameModel gameModel;
     private Button[][] buttons;
+    private ObservableList<PlayerScore> leaderboard;
 
     @FXML
     public void initialize() {
         gameModel = new GameModel();
         buttons = new Button[3][3];
         setupGameGrid();
+        setupLeaderboardTable();
         updateUI();
+        FadeTransition ft = new FadeTransition(Duration.millis(400), gameGrid);
+        ft.setFromValue(0);
+        ft.setToValue(1);
+        ft.play();
+
     }
 
     private void setupGameGrid() {
@@ -44,15 +62,29 @@ public class MainController {
         }
     }
 
+    private void setupLeaderboardTable() {
+        nameColumn.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().name));
+        symbolColumn.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().symbol));
+        scoreColumn.setCellValueFactory(cell -> new SimpleStringProperty(String.valueOf(cell.getValue().score)));
+
+        leaderboard = FXCollections.observableArrayList(
+                new PlayerScore("Joueur 1", "X", 0),
+                new PlayerScore("Joueur 2", "O", 0)
+        );
+
+        leaderboardTable.setItems(leaderboard);
+    }
+
     private void handleButtonClick(int row, int col) {
+        char symbol = gameModel.getCurrentPlayer(); // capture avant move
         if (gameModel.makeMove(row, col)) {
-            char symbol = gameModel.getCurrentPlayer() == 'X' ? 'O' : 'X';
             buttons[row][col].setText(String.valueOf(symbol));
             buttons[row][col].setDisable(true);
             buttons[row][col].setStyle(
                     "-fx-font-size: 36px; -fx-font-weight: bold; -fx-background-color: white; -fx-border-color: #2c3e50; -fx-border-width: 2; -fx-text-fill: " +
                             (symbol == 'X' ? "#e74c3c" : "#3498db") + ";"
             );
+
             updateUI();
 
             if (gameModel.isGameOver()) {
@@ -64,8 +96,12 @@ public class MainController {
     private void updateUI() {
         currentPlayerLabel.setText("Tour de : " + gameModel.getCurrentPlayerName());
         int[] scores = gameModel.getScores();
-        scoreLabel.setText("Score - " + gameModel.getPlayer1Name() + ": " + scores[0] + " | " +
-                gameModel.getPlayer2Name() + ": " + scores[1]);
+        leaderboard.get(0).setScore(scores[0]);
+        leaderboard.get(1).setScore(scores[1]);
+        leaderboardTable.refresh();
+
+        scoreLabel.setText("Score - " + gameModel.getPlayer1Name() + ": " + scores[0] +
+                " | " + gameModel.getPlayer2Name() + ": " + scores[1]);
     }
 
     @FXML
@@ -103,8 +139,7 @@ public class MainController {
             stage.showAndWait();
 
             if (controller.isConfirmed()) {
-                gameModel.setPlayerNames(controller.getPlayer1Name(), controller.getPlayer2Name());
-                resetGame();
+                startGameWithPlayers(controller.getPlayer1Name(), controller.getPlayer2Name());
             }
         } catch (IOException e) {
             showError("Erreur de chargement de la fenêtre des noms.");
@@ -137,23 +172,44 @@ public class MainController {
 
     private void resetGame() {
         gameModel.resetGame();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++) {
                 buttons[i][j].setText("");
                 buttons[i][j].setDisable(false);
                 buttons[i][j].setStyle("-fx-font-size: 36px; -fx-font-weight: bold; -fx-background-color: white; -fx-border-color: #2c3e50; -fx-border-width: 2;");
             }
-        }
         updateUI();
     }
-    public GameModel getGameModel() {
-        return gameModel;
-    }
+
     public void startGameWithPlayers(String p1, String p2) {
         gameModel.setPlayerNames(p1, p2);
+        leaderboard.get(0).name = p1;
+        leaderboard.get(1).name = p2;
+        leaderboard.get(0).setScore(gameModel.getScores()[0]);
+        leaderboard.get(1).setScore(gameModel.getScores()[1]);
+        leaderboardTable.refresh();
         resetGame();
     }
 
+    public GameModel getGameModel() {
+        return gameModel;
+    }
+
+    public static class PlayerScore {
+        String name;
+        String symbol;
+        int score;
+
+        public PlayerScore(String name, String symbol, int score) {
+            this.name = name;
+            this.symbol = symbol;
+            this.score = score;
+        }
+
+        public void setScore(int score) {
+            this.score = score;
+        }
+    }
 
     private void showError(String msg) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

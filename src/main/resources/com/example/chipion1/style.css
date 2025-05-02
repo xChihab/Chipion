@@ -1,0 +1,79 @@
+/* ====== GLOBAL STYLES ====== */
+.root {
+    -fx-font-family: "Inter", "Segoe UI", "Helvetica", sans-serif;
+    -fx-background-color: #f9f9fb;
+}
+
+/* ====== MENU BAR ====== */
+.menu-bar {
+    -fx-background-color: #1f2937;
+}
+.menu .label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+/* ====== LABELS ====== */
+.label {
+    -fx-text-fill: #111827;
+}
+#currentPlayerLabel {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2563eb;
+}
+#scoreLabel {
+    -fx-font-size: 16px;
+    -fx-text-fill: #374151;
+}
+
+/* ====== BUTTONS ====== */
+.button {
+    -fx-font-size: 14px;
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-padding: 8 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 4, 0.3, 0, 2);
+}
+.button:hover {
+    -fx-background-color: #2563eb;
+}
+
+/* ====== GRID BUTTONS ====== */
+.grid-button {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-background-color: white;
+    -fx-border-color: #cbd5e1;
+    -fx-border-width: 2;
+}
+.grid-button:disabled {
+    -fx-opacity: 1;
+}
+
+/* ====== TABLE VIEW ====== */
+.table-view {
+    -fx-background-color: #f1f5f9;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 6;
+}
+.table-view .column-header-background {
+    -fx-background-color: #e5e7eb;
+}
+.table-view .label {
+    -fx-text-fill: #111827;
+    -fx-font-size: 13px;
+}
+.table-row-cell:selected {
+    -fx-background-color: #dbeafe;
+}
+
+/* ====== TEXT FIELD ====== */
+.text-field {
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 5 10;
+}
