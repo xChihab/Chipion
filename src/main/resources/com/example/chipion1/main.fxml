@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.chipion1.MainController"
+      spacing="20"
+      style="-fx-background-color: #f0f0f0;">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <MenuBar fx:id="menuBar" style="-fx-background-color: #2c3e50;">
+        <Menu text="Jeu">
+            <MenuItem text="Nouvelle partie" onAction="#handleNewGame"/>
+            <MenuItem text="Règles" onAction="#handleRules"/>
+            <SeparatorMenuItem/>
+            <MenuItem text="Quitter" onAction="#handleQuit"/>
+        </Menu>
+    </MenuBar>
+
+    <VBox spacing="10" alignment="CENTER">
+        <Label fx:id="currentPlayerLabel"
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <Label fx:id="scoreLabel"
+               style="-fx-font-size: 16px; -fx-text-fill: #34495e;"/>
+    </VBox>
+
+    <GridPane fx:id="gameGrid" hgap="5" vgap="5" alignment="CENTER">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+    </GridPane>
+
+</VBox>
