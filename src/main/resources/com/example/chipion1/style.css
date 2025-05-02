@@ -48,7 +48,12 @@
     -fx-background-color: white;
     -fx-border-color: #cbd5e1;
     -fx-border-width: 2;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-content-display: center;
+    -fx-padding: 0;
 }
+
 .grid-button:disabled {
     -fx-opacity: 1;
 }
@@ -77,3 +82,78 @@
     -fx-background-radius: 4;
     -fx-padding: 5 10;
 }
+.mode-button {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 24;
+    -fx-background-color: #1e293b;
+    -fx-text-fill: #e2e8f0;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 1.5;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.2), 6, 0.3, 0, 2);
+    -fx-transition: all 0.3s ease;
+}
+.mode-button:hover {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.5), 8, 0.5, 0, 2);
+}
+.dark-menu {
+    -fx-background-color: #1e293b;
+}
+
+.current-label {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #60a5fa;
+}
+
+.score-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #cbd5e1;
+}
+
+.leaderboard {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #334155;
+    -fx-border-radius: 5;
+    -fx-table-cell-border-color: #475569;
+}
+
+.input-dark {
+    -fx-background-color: #1e293b;
+    -fx-text-fill: white;
+    -fx-border-color: #3b82f6;
+    -fx-border-radius: 6;
+    -fx-padding: 5 10;
+    -fx-font-size: 14px;
+}
+
+.confirm-button {
+    -fx-background-color: #10b981;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+}
+
+.danger-button {
+    -fx-background-color: #ef4444;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+}
+/* === CASE GAGNANTE (EFFET DE VICTOIRE) === */
+.winning-cell {
+    -fx-background-color: #10b981;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #10b981, 12, 0.5, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+

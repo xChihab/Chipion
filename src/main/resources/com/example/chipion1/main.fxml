@@ -7,44 +7,38 @@
 <HBox xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.chipion1.MainController"
-      spacing="20"
+      alignment="CENTER"
+      spacing="30"
       stylesheets="@style.css"
-      style="-fx-background-color: #f0f0f0;"
-      alignment="CENTER">
+      style="-fx-background-color: #0f172a; -fx-padding: 30;">
 
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
-
-    <VBox spacing="20">
-        <MenuBar fx:id="menuBar" style="-fx-background-color: #2c3e50;">
+    <VBox spacing="25">
+        <MenuBar fx:id="menuBar" styleClass="dark-menu">
             <Menu text="Jeu">
-                <MenuItem text="Nouvelle partie" onAction="#handleNewGame"/>
-                <MenuItem text="Règles" onAction="#handleRules"/>
-                <SeparatorMenuItem/>
-                <MenuItem text="Quitter" onAction="#handleQuit"/>
+                <MenuItem onAction="#handleNewGame" text="Nouvelle partie" />
+                <MenuItem onAction="#handleRules" text="Règles" />
+                <SeparatorMenuItem />
+                <MenuItem onAction="#handleQuit" text="Quitter" />
             </Menu>
         </MenuBar>
 
-        <VBox spacing="10" alignment="CENTER">
-            <Label fx:id="currentPlayerLabel"
-                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
-            <Label fx:id="scoreLabel"
-                   style="-fx-font-size: 16px; -fx-text-fill: #34495e;"/>
+        <VBox alignment="CENTER" spacing="10">
+            <Label fx:id="currentPlayerLabel" styleClass="current-label"/>
+            <Label fx:id="scoreLabel" styleClass="score-label"/>
         </VBox>
 
-        <GridPane fx:id="gameGrid" hgap="5" vgap="5" alignment="CENTER">
+        <GridPane fx:id="gameGrid" alignment="CENTER" hgap="5" vgap="5">
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
         </GridPane>
     </VBox>
 
-    <TableView fx:id="leaderboardTable" prefWidth="250">
+    <TableView fx:id="leaderboardTable" prefWidth="280" styleClass="leaderboard">
         <columns>
-            <TableColumn fx:id="nameColumn" text="Joueur" prefWidth="100"/>
-            <TableColumn fx:id="symbolColumn" text="Symbole" prefWidth="60"/>
-            <TableColumn fx:id="scoreColumn" text="Score" prefWidth="70"/>
+            <TableColumn fx:id="nameColumn" prefWidth="100" text="Joueur"/>
+            <TableColumn fx:id="symbolColumn" prefWidth="60" text="Symbole"/>
+            <TableColumn fx:id="scoreColumn" prefWidth="70" text="Score"/>
         </columns>
     </TableView>
 </HBox>

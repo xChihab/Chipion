@@ -5,9 +5,10 @@ public class GameModel {
     private final char[][] board;
     private char currentPlayer;
     private boolean gameOver;
-    private final int[] scores; // [X, O]
+    private final int[] scores;
     private String player1Name;
     private String player2Name;
+    private int[][] winningPositions;
 
     public GameModel() {
         board = new char[SIZE][SIZE];
@@ -21,6 +22,7 @@ public class GameModel {
                 board[i][j] = ' ';
         currentPlayer = 'X';
         gameOver = false;
+        winningPositions = null;
     }
 
     public boolean makeMove(int row, int col) {
@@ -49,16 +51,31 @@ public class GameModel {
     }
 
     private boolean checkWin() {
-        for (int i = 0; i < SIZE; i++)
-            if (board[i][0] != ' ' && board[i][0] == board[i][1] && board[i][1] == board[i][2])
+        for (int i = 0; i < SIZE; i++) {
+            if (board[i][0] != ' ' && board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
+                winningPositions = new int[][]{{i, 0}, {i, 1}, {i, 2}};
                 return true;
+            }
+        }
 
-        for (int j = 0; j < SIZE; j++)
-            if (board[0][j] != ' ' && board[0][j] == board[1][j] && board[1][j] == board[2][j])
+        for (int j = 0; j < SIZE; j++) {
+            if (board[0][j] != ' ' && board[0][j] == board[1][j] && board[1][j] == board[2][j]) {
+                winningPositions = new int[][]{{0, j}, {1, j}, {2, j}};
                 return true;
+            }
+        }
 
-        return (board[0][0] != ' ' && board[0][0] == board[1][1] && board[1][1] == board[2][2]) ||
-                (board[0][2] != ' ' && board[0][2] == board[1][1] && board[1][1] == board[2][0]);
+        if (board[0][0] != ' ' && board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
+            winningPositions = new int[][]{{0, 0}, {1, 1}, {2, 2}};
+            return true;
+        }
+
+        if (board[0][2] != ' ' && board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
+            winningPositions = new int[][]{{0, 2}, {1, 1}, {2, 0}};
+            return true;
+        }
+
+        return false;
     }
 
     public char getCurrentPlayer() {
@@ -91,6 +108,10 @@ public class GameModel {
     }
 
     public String getWinnerName() {
-        return gameOver && checkWin() ? (currentPlayer == 'X' ? player1Name : player2Name) : null;
+        return gameOver && winningPositions != null ? (currentPlayer == 'X' ? player1Name : player2Name) : null;
+    }
+
+    public int[][] getWinningPositions() {
+        return winningPositions;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.chipion1;
 
+import javafx.animation.ScaleTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,9 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.animation.FadeTransition;
 import javafx.util.Duration;
-
 
 import java.io.IOException;
 
@@ -39,11 +38,6 @@ public class MainController {
         setupGameGrid();
         setupLeaderboardTable();
         updateUI();
-        FadeTransition ft = new FadeTransition(Duration.millis(400), gameGrid);
-        ft.setFromValue(0);
-        ft.setToValue(1);
-        ft.play();
-
     }
 
     private void setupGameGrid() {
@@ -52,7 +46,7 @@ public class MainController {
             for (int col = 0; col < 3; col++) {
                 Button button = new Button();
                 button.setPrefSize(100, 100);
-                button.setStyle("-fx-font-size: 36px; -fx-font-weight: bold; -fx-background-color: white; -fx-border-color: #2c3e50; -fx-border-width: 2;");
+                button.getStyleClass().add("grid-button");
                 final int r = row;
                 final int c = col;
                 button.setOnAction(e -> handleButtonClick(r, c));
@@ -76,19 +70,36 @@ public class MainController {
     }
 
     private void handleButtonClick(int row, int col) {
-        char symbol = gameModel.getCurrentPlayer(); // capture avant move
+        char symbol = gameModel.getCurrentPlayer(); // capture avant le switch
         if (gameModel.makeMove(row, col)) {
-            buttons[row][col].setText(String.valueOf(symbol));
-            buttons[row][col].setDisable(true);
-            buttons[row][col].setStyle(
-                    "-fx-font-size: 36px; -fx-font-weight: bold; -fx-background-color: white; -fx-border-color: #2c3e50; -fx-border-width: 2; -fx-text-fill: " +
-                            (symbol == 'X' ? "#e74c3c" : "#3498db") + ";"
-            );
+            Button b = buttons[row][col];
+            b.setText(String.valueOf(symbol));
+            b.setDisable(true);
+            b.setStyle("-fx-font-size: 36px; -fx-font-weight: bold; -fx-background-color: white; -fx-border-color: #2c3e50; -fx-border-width: 2; -fx-text-fill: " +
+                    (symbol == 'X' ? "#e74c3c" : "#3498db") + ";");
 
             updateUI();
 
             if (gameModel.isGameOver()) {
+                showWinningEffect();
                 showGameOverDialog();
+            }
+        }
+    }
+
+    private void showWinningEffect() {
+        if (gameModel.getWinnerName() != null) {
+            int[][] winPos = gameModel.getWinningPositions();
+            for (int[] pos : winPos) {
+                Button b = buttons[pos[0]][pos[1]];
+                b.getStyleClass().add("winning-cell");
+
+                ScaleTransition st = new ScaleTransition(Duration.millis(300), b);
+                st.setByX(0.15);
+                st.setByY(0.15);
+                st.setCycleCount(2);
+                st.setAutoReverse(true);
+                st.play();
             }
         }
     }
@@ -176,7 +187,8 @@ public class MainController {
             for (int j = 0; j < 3; j++) {
                 buttons[i][j].setText("");
                 buttons[i][j].setDisable(false);
-                buttons[i][j].setStyle("-fx-font-size: 36px; -fx-font-weight: bold; -fx-background-color: white; -fx-border-color: #2c3e50; -fx-border-width: 2;");
+                buttons[i][j].getStyleClass().clear();
+                buttons[i][j].getStyleClass().add("grid-button");
             }
         updateUI();
     }
@@ -189,10 +201,6 @@ public class MainController {
         leaderboard.get(1).setScore(gameModel.getScores()[1]);
         leaderboardTable.refresh();
         resetGame();
-    }
-
-    public GameModel getGameModel() {
-        return gameModel;
     }
 
     public static class PlayerScore {

@@ -7,40 +7,32 @@
 <VBox xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.chipion1.PlayerNamesController"
-      spacing="20"
-      style="-fx-background-color: #f0f0f0;"
-      alignment="CENTER">
+      alignment="CENTER"
+      spacing="25"
+      stylesheets="@style.css"
+      style="-fx-background-color: #0f172a; -fx-padding: 30;">
 
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
-
-    <Label text="Entrez les noms des joueurs"
-           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+    <Label text="🔤 Entrez les noms des joueurs"
+           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #f1f5f9;" />
 
     <GridPane vgap="15" hgap="15" alignment="CENTER">
         <Label text="Joueur 1 (X):"
-               style="-fx-font-size: 14px; -fx-text-fill: #34495e;"
+               style="-fx-text-fill: #cbd5e1;"
                GridPane.rowIndex="0" GridPane.columnIndex="0"/>
         <TextField fx:id="player1NameField"
-                   style="-fx-font-size: 14px;"
+                   styleClass="input-dark"
                    GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
         <Label text="Joueur 2 (O):"
-               style="-fx-font-size: 14px; -fx-text-fill: #34495e;"
+               style="-fx-text-fill: #cbd5e1;"
                GridPane.rowIndex="1" GridPane.columnIndex="0"/>
         <TextField fx:id="player2NameField"
-                   style="-fx-font-size: 14px;"
+                   styleClass="input-dark"
                    GridPane.rowIndex="1" GridPane.columnIndex="1"/>
     </GridPane>
 
     <HBox spacing="15" alignment="CENTER_RIGHT">
-        <Button text="Annuler"
-                onAction="#handleCancel"
-                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px;"/>
-        <Button text="Confirmer"
-                onAction="#handleConfirm"
-                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-size: 14px;"/>
+        <Button text="Annuler" onAction="#handleCancel" styleClass="danger-button"/>
+        <Button text="Confirmer" onAction="#handleConfirm" styleClass="confirm-button"/>
     </HBox>
-
 </VBox>
