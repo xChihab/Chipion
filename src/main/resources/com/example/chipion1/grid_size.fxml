@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="20" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.chipion1.GridSizeSelector">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Choisissez la taille de la grille" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="3x3" onAction="#handleStandardSize" styleClass="grid-size-button"/>
+        <Button text="5x5" onAction="#handleLargeSize" styleClass="grid-size-button"/>
+        <Button text="Personnalisé" onAction="#handleCustomSize" styleClass="grid-size-button"/>
+    </HBox>
+</VBox> 

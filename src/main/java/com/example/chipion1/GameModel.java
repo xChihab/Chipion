@@ -1,7 +1,7 @@
 package com.example.chipion1;
 
 public class GameModel {
-    private static final int SIZE = 3;
+    private int size;
     private final char[][] board;
     private char currentPlayer;
     private boolean gameOver;
@@ -10,15 +10,16 @@ public class GameModel {
     private String player2Name;
     private int[][] winningPositions;
 
-    public GameModel() {
-        board = new char[SIZE][SIZE];
+    public GameModel(int size) {
+        this.size = size;
+        board = new char[size][size];
         scores = new int[2];
         resetGame();
     }
 
     public void resetGame() {
-        for (int i = 0; i < SIZE; i++)
-            for (int j = 0; j < SIZE; j++)
+        for (int i = 0; i < size; i++)
+            for (int j = 0; j < size; j++)
                 board[i][j] = ' ';
         currentPlayer = 'X';
         gameOver = false;
@@ -26,7 +27,7 @@ public class GameModel {
     }
 
     public boolean makeMove(int row, int col) {
-        if (row < 0 || row >= SIZE || col < 0 || col >= SIZE || board[row][col] != ' ' || gameOver)
+        if (row < 0 || row >= size || col < 0 || col >= size || board[row][col] != ' ' || gameOver)
             return false;
 
         board[row][col] = currentPlayer;
@@ -51,25 +52,53 @@ public class GameModel {
     }
 
     private boolean checkWin() {
-        for (int i = 0; i < SIZE; i++) {
-            if (board[i][0] != ' ' && board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
-                winningPositions = new int[][]{{i, 0}, {i, 1}, {i, 2}};
+        // Vérifier les lignes
+        for (int i = 0; i < size; i++) {
+            boolean win = true;
+            char first = board[i][0];
+            if (first == ' ') continue;
+            for (int j = 1; j < size; j++) {
+                if (board[i][j] != first) {
+                    win = false;
+                    break;
+                }
+            }
+            if (win) {
+                winningPositions = new int[size][2];
+                for (int j = 0; j < size; j++) {
+                    winningPositions[j] = new int[]{i, j};
+                }
                 return true;
             }
         }
 
-        for (int j = 0; j < SIZE; j++) {
-            if (board[0][j] != ' ' && board[0][j] == board[1][j] && board[1][j] == board[2][j]) {
-                winningPositions = new int[][]{{0, j}, {1, j}, {2, j}};
+        // Vérifier les colonnes
+        for (int j = 0; j < size; j++) {
+            boolean win = true;
+            char first = board[0][j];
+            if (first == ' ') continue;
+            for (int i = 1; i < size; i++) {
+                if (board[i][j] != first) {
+                    win = false;
+                    break;
+                }
+            }
+            if (win) {
+                winningPositions = new int[size][2];
+                for (int i = 0; i < size; i++) {
+                    winningPositions[i] = new int[]{i, j};
+                }
                 return true;
             }
         }
 
+        // Vérifier la diagonale principale
         if (board[0][0] != ' ' && board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
             winningPositions = new int[][]{{0, 0}, {1, 1}, {2, 2}};
             return true;
         }
 
+        // Vérifier la diagonale secondaire
         if (board[0][2] != ' ' && board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
             winningPositions = new int[][]{{0, 2}, {1, 1}, {2, 0}};
             return true;

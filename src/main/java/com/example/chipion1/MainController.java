@@ -33,19 +33,25 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        gameModel = new GameModel();
-        buttons = new Button[3][3];
-        setupGameGrid();
-        setupLeaderboardTable();
-        updateUI();
+        GridSize gridSize = GridSizeSelector.showDialog();
+        if (gridSize.confirmed) {
+            gameModel = new GameModel(gridSize.size);
+            buttons = new Button[gridSize.size][gridSize.size];
+            setupGameGrid();
+            setupLeaderboardTable();
+            updateUI();
+        } else {
+            System.exit(0);
+        }
     }
 
     private void setupGameGrid() {
         gameGrid.getChildren().clear();
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
+        int size = gameModel.getSize();
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
                 Button button = new Button();
-                button.setPrefSize(100, 100);
+                button.setPrefSize(80, 80);
                 button.getStyleClass().add("grid-button");
                 final int r = row;
                 final int c = col;
@@ -183,8 +189,8 @@ public class MainController {
 
     private void resetGame() {
         gameModel.resetGame();
-        for (int i = 0; i < 3; i++)
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < gameModel.getSize(); i++)
+            for (int j = 0; j < gameModel.getSize(); j++) {
                 buttons[i][j].setText("");
                 buttons[i][j].setDisable(false);
                 buttons[i][j].getStyleClass().clear();

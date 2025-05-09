@@ -9,7 +9,7 @@
       fx:controller="com.example.chipion1.MainController"
       alignment="CENTER"
       spacing="30"
-      stylesheets="@style.css"
+      stylesheets="@styles.css"
       style="-fx-background-color: #0f172a; -fx-padding: 30;">
 
     <VBox spacing="25">
