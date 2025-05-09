@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.chipion1.ModeSelectionController"
-      spacing="30"
-      alignment="CENTER"
-      stylesheets="@style.css"
-      style="-fx-background-color: #0f172a; -fx-padding: 40;">
+<VBox alignment="CENTER" spacing="30" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.chipion1.ModeSelectionController"
+      style="-fx-background-color: #1a1a2e;">
+    <padding>
+        <Insets top="50" right="50" bottom="50" left="50"/>
+    </padding>
 
-    <Label text="🕹️ Choisissez votre mode de jeu"
-           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #f1f5f9;" />
+    <Text text="MORPION" style="-fx-font-size: 48px; -fx-font-weight: bold; -fx-fill: #e94560; -fx-effect: dropshadow(three-pass-box, #e94560, 10, 0, 0, 0);"/>
+    
+    <Text text="Sonic Edition" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #0f3460; -fx-effect: dropshadow(three-pass-box, #0f3460, 5, 0, 0, 0);"/>
 
-    <VBox spacing="15" alignment="CENTER">
-        <Button text="👥 Joueur contre Joueur (local)" onAction="#startPvP"
-                styleClass="mode-button"/>
-        <Button text="🤖 Joueur contre IA" onAction="#startVsAI"
-                styleClass="mode-button"/>
-        <Button text="🌐 Joueur contre Joueur (en ligne)" onAction="#startOnline"
-                styleClass="mode-button"/>
+    <VBox spacing="20" alignment="CENTER" style="-fx-background-color: #16213e; -fx-padding: 30; -fx-background-radius: 10;">
+        <Label text="Choisissez votre mode de jeu" style="-fx-font-size: 20px; -fx-text-fill: #e94560; -fx-font-weight: bold;"/>
+        
+        <HBox spacing="20" alignment="CENTER">
+            <Button text="Classique" onAction="#handleClassicMode" styleClass="mode-button"/>
+            <Button text="Contre la montre" onAction="#handleTimeMode" styleClass="mode-button"/>
+        </HBox>
     </VBox>
+
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="Règles" onAction="#handleRules" styleClass="info-button"/>
+        <Button text="Quitter" onAction="#handleQuit" styleClass="quit-button"/>
+    </HBox>
 </VBox>
