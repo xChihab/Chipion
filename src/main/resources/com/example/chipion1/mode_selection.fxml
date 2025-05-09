@@ -23,7 +23,7 @@
         <Label text="Choisissez votre mode de jeu" style="-fx-font-size: 24px; -fx-text-fill: #e94560; -fx-font-weight: bold; -fx-effect: dropshadow(three-pass-box, #e94560, 5, 0, 0, 0);"/>
         
         <VBox spacing="15" alignment="CENTER">
-            <Button text="🎮 Mode Classique" onAction="#handleClassicMode" styleClass="mode-button"/>
+            <Button fx:id="classicModeButton" text="🎮 Mode Classique" onAction="#handleClassicMode" styleClass="mode-button"/>
             <Button text="⏱️ Mode Contre la montre" onAction="#handleTimeMode" styleClass="mode-button"/>
         </VBox>
     </VBox>

@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,19 +14,29 @@ public class ModeSelectionController {
     @FXML
     private void handleClassicMode() {
         try {
+            // Chargement du FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/chipion1/player_names.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            
+            // Création d'une nouvelle scène
+            Scene newScene = new Scene(root);
+            newScene.getStylesheets().add(getClass().getResource("/com/example/chipion1/styles.css").toExternalForm());
+            
+            // Récupération de la fenêtre actuelle
+            Stage stage = (Stage) ((Button) newScene.lookup("#classicModeButton")).getScene().getWindow();
+            
+            // Application de la nouvelle scène
+            stage.setScene(newScene);
             stage.setTitle("Noms des joueurs");
+            stage.centerOnScreen();
         } catch (IOException e) {
-            showError("Erreur de chargement de la fenêtre des noms.");
+            e.printStackTrace();
+            showError("Erreur de chargement : " + e.getMessage());
         }
     }
 
     @FXML
     private void handleTimeMode() {
-        // À implémenter plus tard
         showError("Mode contre la montre en cours de développement !");
     }
 
