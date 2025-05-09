@@ -143,4 +143,8 @@ public class GameModel {
     public int[][] getWinningPositions() {
         return winningPositions;
     }
+
+    public int getSize() {
+        return size;
+    }
 }

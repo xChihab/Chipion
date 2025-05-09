@@ -13,12 +13,14 @@ import java.io.IOException;
 public class GridSizeSelector {
     private int selectedSize = 3;
     private boolean confirmed = false;
+    private Parent root;
 
     public static GridSize showDialog() {
         try {
             FXMLLoader loader = new FXMLLoader(GridSizeSelector.class.getResource("/com/example/chipion1/grid_size.fxml"));
             Parent root = loader.load();
             GridSizeSelector controller = loader.getController();
+            controller.root = root;
 
             Stage stage = new Stage();
             stage.setTitle("Taille de la grille");
@@ -71,7 +73,7 @@ public class GridSizeSelector {
     }
 
     private void closeDialog() {
-        Stage stage = (Stage) ((Scene) root.getScene()).getWindow();
+        Stage stage = (Stage) root.getScene().getWindow();
         stage.close();
     }
 

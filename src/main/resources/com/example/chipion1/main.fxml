@@ -10,10 +10,10 @@
       alignment="CENTER"
       spacing="30"
       stylesheets="@styles.css"
-      style="-fx-background-color: #0f172a; -fx-padding: 30;">
+      style="-fx-background-color: #1a1a2e; -fx-padding: 30;">
 
     <VBox spacing="25">
-        <MenuBar fx:id="menuBar" styleClass="dark-menu">
+        <MenuBar fx:id="menuBar">
             <Menu text="Jeu">
                 <MenuItem onAction="#handleNewGame" text="Nouvelle partie" />
                 <MenuItem onAction="#handleRules" text="Règles" />
@@ -22,9 +22,9 @@
             </Menu>
         </MenuBar>
 
-        <VBox alignment="CENTER" spacing="10">
-            <Label fx:id="currentPlayerLabel" styleClass="current-label"/>
-            <Label fx:id="scoreLabel" styleClass="score-label"/>
+        <VBox alignment="CENTER" spacing="15">
+            <Label fx:id="currentPlayerLabel" styleClass="label"/>
+            <Label fx:id="scoreLabel" styleClass="label"/>
         </VBox>
 
         <GridPane fx:id="gameGrid" alignment="CENTER" hgap="5" vgap="5">
@@ -34,7 +34,7 @@
         </GridPane>
     </VBox>
 
-    <TableView fx:id="leaderboardTable" prefWidth="280" styleClass="leaderboard">
+    <TableView fx:id="leaderboardTable" prefWidth="280" styleClass="table-view">
         <columns>
             <TableColumn fx:id="nameColumn" prefWidth="100" text="Joueur"/>
             <TableColumn fx:id="symbolColumn" prefWidth="60" text="Symbole"/>
